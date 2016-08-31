@@ -1,0 +1,64 @@
+- Front/Back - CW
+- Left/Right - CCW
+
+- Right ESC - Yellow, Black Red,  from above view
+	    - Red, Black, Yellow,  from below view 
+
+- Left ESC - Yellow, Black Red,  from above view
+	    - Red, Black, Yellow,  from below view
+
+
+- 3, 4, 5, 7 are working all on \portd3,4,5,7 
+
+- ESC with highest starting PWM starts at 1219
+
+- We can power the arduino VCC and 3.3V regulator from the ESC BEC
+
+- There is a mysterious ground connection for the original RAW pin usage
+
+- Non - intrusive soldering procedure:
+      	- Left Xbee header
+	- Arduino pins
+	- IMU header
+	- Right Xbee header 
+
+>>>>	Wire to Soft I2C mapping
+	- In setup Wire uses begin() for initialization of TWI and sets pins for SDA and SCL
+
+Wire methods
+
+
+- begin()
+- available() - N/A
+- requestFrom(address, count) - requestFrom()
+- receive() - read()
+- beginTransmission(address)
+- send(byte) - write
+- endTransmission()
+
+
+- GYR_ADDRESS for L3GD20H is (0xD6 >> 1) or 01101011b or 0x6B
+- For setting the gyro, use 0x4F or 01001111b
+- ACC_ADDRESS for LSM303D is (0x3A >> 1) or 00011101b or 0x1D 
+- For setting the acc, use 0x57 or 01010111b
+
+for SDA, SCL
+- use pins 10 an A3, respectively??? Iono meihn.! It doesn't matter. Just choose in any order. Feel free to permutate.
+
+When calling writeGyroReg and writeAccReg use the following to initialize the registers. 
+- writeGyroReg(L3G4200D_CTRL_REG1, 0x4F); //Same as original code. 
+  writeAccReg(LSM303_CTRL_REG1_A, 0b01010111);  //Was 0x27 in original. Now 0x57 or 0b01010111
+
+- Check the datasheets to understand what the values used above are doing. Also check "IMU_SoftI2C_Test" for example usage
+
+- I have included the two I2C libraries we checked in the I2C_Liraries Folder. 
+- In "IMU_SoftI2C_Test" I am currently using "SoftI2CMaster-master - todbot" to test. 
+- You may also try "SoftI2CMaster-master - Assembler" to ensure that the IMU readings are consistent
+
+- I have written imu.h, our  own version of minimu9.h in the original code, which contains constants for the GRY and ACC
+
+
+
+
+
+
