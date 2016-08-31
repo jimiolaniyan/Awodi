@@ -57,6 +57,11 @@ When calling writeGyroReg and writeAccReg use the following to initialize the re
 
 - I have written imu.h, our  own version of minimu9.h in the original code, which contains constants for the GRY and ACC
 
+- As an aside, I think instead of creating new arduino files, when trying to make major changes(in order not to break things), I think 
+  its better to take advantage of git and just commit changes so we can have a log of our progress.
+
+
+
 
 
 
