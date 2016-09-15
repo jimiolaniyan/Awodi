@@ -20,14 +20,14 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
- for (Pulse = 1220; Pulse <= 1500; ++Pulse){
+ for (Pulse = 1220; Pulse <= 1300; ++Pulse){
     PORTD |= (1 << PORTD7 ) | (1 << PORTD3) | (1 << PORTD4 ) | (1 << PORTD5);
     delayMicroseconds(Pulse);
     PORTD &= ~(_BV(PORTD3)) & ~(_BV(PORTD7)) & ~(_BV(PORTD4)) & ~(_BV(PORTD5));
     delay(20 - (Pulse/1000));
   }
   
-  for (Pulse = 1500; Pulse >= 1220; --Pulse){
+  for (Pulse = 1300; Pulse >= 1220; --Pulse){
     PORTD |= (1 << PORTD7 ) | (1 << PORTD3) | (1 << PORTD4 ) | (1 << PORTD5);
     delayMicroseconds(Pulse);
     PORTD &= ~(_BV(PORTD3)) & ~(_BV(PORTD7)) & ~(_BV(PORTD4)) & ~(_BV(PORTD5));
