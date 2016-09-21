@@ -1,7 +1,10 @@
 #define TURN_OFF 1100
+#define STEP 5
+#define START 1230
 int arm_time = 0;
 int count = 500;
 int Pulse = 1000;
+bool isStart = false;
 
 void setup() {
   // put your setup code here, to run once:
@@ -17,22 +20,29 @@ void setup() {
     
     //analogWrite(pin, 14);
   }
+  Pulse = START;
 }
 
 void loop() {
-  Pulse = 1250;
+  
    if ( Serial.available() > 0) { // if there are bytes waiting on the serial port
-   char inByte = Serial.read(); // read a byte
-   if (inByte == '*') { // if that byte is the desired character
-   int len = 4; // expected string is 6 bytes long
-   char inString[len]; // declare string variable
-   for (int i = 0; i < len; i++) {
-   inString[i] = Serial.read();
- }
-   if ( strstr(inString, "stop") != NULL ) // check to see if the respose is "reset"
-     Pulse = TURN_OFF; // reset the chip after waiting for the specified # of milliseconds
+     char inByte = Serial.read(); // read a byte
+     
+     switch (inByte) {
+       case '*':
+         Pulse = TURN_OFF;
+         break;
+       case '+':
+         Pulse += STEP;
+         break;
+       case '-':
+         Pulse -= STEP;
+         break;
+       case 's':
+         Pulse = START;
+         break;
+     }
    }
-  }
   
   PORTD |= (1 << PORTD7 ) | (1 << PORTD3) | (1 << PORTD4 ) | (1 << PORTD5);
   delayMicroseconds(Pulse);
