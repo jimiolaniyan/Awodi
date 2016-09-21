@@ -1,27 +1,29 @@
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(19200);
+  Serial.begin(9600);
 
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  /*if (Serial.available() > 0) {
-    Serial.write(Serial.read());
-    Serial.println(Serial.read());
+  while (Serial.available() > 0){
+    char ch = Serial.read();
+    Serial.write(ch);
   }
+    //Serial.println(Serial.read());
+
   
-  else {
+  /*else {
     Serial.write('*');
     Serial.println('*');
     Serial.write("stop");
     Serial.println("stop");
   }
-  */
+  
   Serial.write('*');
   Serial.println('*');
   Serial.write("stop");
   Serial.println("stop");
-  
-  delay(5000);
+  */
+  delay(2000);
 }
