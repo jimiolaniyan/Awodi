@@ -70,3 +70,7 @@ Xbee shenanigans
 - When programming arduino, do not have Xbee plugged in.
 - Baud rate of 9600 is working right now, but try 57600 and document results. 
 
+Independent control of motors
+- Took first step toward implementing independent control of the four motors using the Servo class included with arduino. Methods of interest:
+  * Servo.attach(pin) 
+  * Servo.write(value)
