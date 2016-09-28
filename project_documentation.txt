@@ -10,7 +10,9 @@
 
 - 3, 4, 5, 7 are working all on \portd3,4,5,7 
 
-- ESC with highest starting PWM starts at 1219
+- ESC with highest starting PWM starts at 1220
+
+- But to give some allowance we chose 1230 
 
 - We can power the arduino VCC and 3.3V regulator from the ESC BEC
 
@@ -35,6 +37,7 @@ Wire methods
 - beginTransmission(address)
 - send(byte) - write
 - endTransmission()
+
 
 
 - GYR_ADDRESS for L3GD20H is (0xD6 >> 1) or 01101011b or 0x6B
@@ -62,8 +65,12 @@ When calling writeGyroReg and writeAccReg use the following to initialize the re
 
 
 
+Xbee shenanigans
+- Xbee with SL 40BED067 appears not to receive 
+- When programming arduino, do not have Xbee plugged in.
+- Baud rate of 9600 is working right now, but try 57600 and document results. 
 
-
-
-
-
+Independent control of motors
+- Took first step toward implementing independent control of the four motors using the Servo class included with arduino. Methods of interest:
+  * Servo.attach(pin) 
+  * Servo.write(value)
