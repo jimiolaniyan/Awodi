@@ -1,7 +1,8 @@
 #include <Servo.h>
 #define TURN_OFF 1100
-#define STEP 50
-#define START 1700
+#define STEP 20
+#define START 1400
+#define STARTBIG 1500
 int arm_time = 0;
 int count = 500;
 int Pulse = 1000;
@@ -21,13 +22,15 @@ void setup() {
     delay(20 - (Pulse/1000));
   }
   
-  //Pulse3 = Pulse4 = Pulse5 = Pulse7 = START;
-  //servo3.attach(3);
-  //servo4.attach(4);
-  //servo5.attach(5);
-  //servo7.attach(7);
   
-  Pulse = START;
+  Pulse7 = Pulse4 = Pulse5 = START;
+  Pulse3 = STARTBIG;
+  servo3.attach(3);
+  servo4.attach(4);
+  servo5.attach(5);
+  servo7.attach(7);
+  
+  //Pulse = START;
 }
 
 void spin(const int &, const int &, const int &, const int &);
@@ -39,20 +42,23 @@ void loop() {
      
      switch (inByte) {
        case '*':
-         //Pulse3 = Pulse4 = Pulse5 = Pulse7 = TURN_OFF;
-         Pulse = TURN_OFF;
+         Pulse3 = Pulse4 = Pulse5 = Pulse7 = TURN_OFF;
+         //Pulse = TURN_OFF;
          break;
        case '+':
-         //Pulse3 = Pulse4 = Pulse5 = Pulse7 += STEP;
-         Pulse += STEP;
+         Pulse4 = Pulse5 = Pulse7 += STEP;
+         Pulse3 += STEP;
+         //Pulse += STEP;
          break;
        case '-':
-         //Pulse3 = Pulse4 = Pulse5 = Pulse7 -= STEP;
-         Pulse -= STEP;
+         Pulse4 = Pulse5 = Pulse7 -= STEP;
+         Pulse3 -= STEP;
+         //Pulse -= STEP;
          break;
        case 's':
-         //Pulse7 = Pulse4 = Pulse5 = Pulse3 = START;
-         Pulse = START;
+         Pulse4 = Pulse5 = Pulse7 = START;
+         Pulse3 = STARTBIG;
+         //Pulse = START;
          break;
        case 'r':
          Pulse4 -= STEP;
@@ -67,12 +73,12 @@ void loop() {
      }
    }
    
-   //spin(Pulse3, Pulse4, Pulse5, Pulse7);
+   spin(Pulse3, Pulse4, Pulse5, Pulse7);
   
-  PORTD |= (1 << PORTD7 ) | (1 << PORTD3) | (1 << PORTD4 ) | (1 << PORTD5);
+  /*PORTD |= (1 << PORTD3 ) | (1 << PORTD4 ) | (1 << PORTD5);
   delayMicroseconds(Pulse);
-  PORTD &= ~(_BV(PORTD3)) & ~(_BV(PORTD7)) & ~(_BV(PORTD4)) & ~(_BV(PORTD5));
-  delay(20 - (Pulse/1000));
+  PORTD &=  ~(_BV(PORTD3)) & ~(_BV(PORTD4)) & ~(_BV(PORTD5));
+  delay(20 - (Pulse/1000));*/
 }
 
 void spin(const int &Pulse3, const int &Pulse4, const int &Pulse5, const int &Pulse7) {
