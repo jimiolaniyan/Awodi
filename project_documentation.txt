@@ -1,4 +1,4 @@
-- Front/Back - CW
+- Front/Back - CW big ESC and newest fix (left and right of reset button)
 - Left/Right - CCW
 
 - Right ESC - Yellow, Black Red,  from above view
