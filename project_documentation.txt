@@ -70,12 +70,10 @@ Xbee shenanigans
 - When programming arduino, do not have Xbee plugged in.
 - Baud rate of 9600 is working right now, but try 57600 and document results. 
 
-<<<<<<< HEAD
 Independent control of motors
 - Took first step toward implementing independent control of the four motors using the Servo class included with arduino. Methods of interest:
   * Servo.attach(pin) 
   * Servo.write(value)
-=======
 
 Pad things
 - Axis index 0 is -1 to 0 to +1 (i.e get_axis(0) is left analog left(-1) to right(+1))
@@ -84,6 +82,3 @@ Pad things
 - Axis index 3 is -1 to 0 to +1 (i.e get_axis(3) is right analog up(-1) to down(+1))
 
 - It appears indices 2 and 3 have better finetune when moving the analog stick
-
-
->>>>>>> add pad docs
