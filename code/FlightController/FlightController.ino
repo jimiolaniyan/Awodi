@@ -1,7 +1,8 @@
 #include <Servo.h>
 #define TURN_OFF 1100
-#define STEP 10
-#define START 1230
+#define STEP 20
+#define START 1400
+#define STARTBIG 1500
 int arm_time = 0;
 int count = 500;
 int Pulse = 1000;
@@ -12,7 +13,7 @@ Servo servo3, servo4, servo5, servo7;   //this should be changed to front, right
 void setup() {
   // put your setup code here, to run once:
   
-  Serial.begin(9600);
+  Serial.begin(57600);
   DDRD  |=  (_BV(PORTD3)) | (_BV(PORTD7)) | (_BV(PORTD4)) | (_BV(PORTD5));
   for (arm_time = 0; arm_time < count; ++arm_time){
     PORTD |= (1 << PORTD7 ) | (1 << PORTD3) | (1 << PORTD4 ) | (1 << PORTD5);
@@ -21,7 +22,9 @@ void setup() {
     delay(20 - (Pulse/1000));
   }
   
-  Pulse3 = Pulse4 = Pulse5 = Pulse7 = START;
+  
+  Pulse7 = Pulse4 = Pulse5 = START;
+  Pulse3 = STARTBIG;
   servo3.attach(3);
   servo4.attach(4);
   servo5.attach(5);
@@ -43,15 +46,18 @@ void loop() {
          //Pulse = TURN_OFF;
          break;
        case '+':
-         Pulse3 = Pulse4 = Pulse5 = Pulse7 += STEP;
+         Pulse4 = Pulse5 = Pulse7 += STEP;
+         Pulse3 += STEP;
          //Pulse += STEP;
          break;
        case '-':
-         Pulse3 = Pulse4 = Pulse5 = Pulse7 -= STEP;
+         Pulse4 = Pulse5 = Pulse7 -= STEP;
+         Pulse3 -= STEP;
          //Pulse -= STEP;
          break;
        case 's':
-         Pulse3 = Pulse4 = Pulse5 = Pulse7 = START;
+         Pulse4 = Pulse5 = Pulse7 = START;
+         Pulse3 = STARTBIG;
          //Pulse = START;
          break;
        case 'r':
@@ -60,8 +66,8 @@ void loop() {
          Pulse3 = Pulse7 = TURN_OFF;
          break;
        case 'p':
-         Pulse3 -= STEP;
-         Pulse7 += STEP;
+         Pulse3 += STEP;
+         Pulse7 -= STEP;
          Pulse4 = Pulse5 = TURN_OFF;
          break;   
      }
@@ -69,9 +75,9 @@ void loop() {
    
    spin(Pulse3, Pulse4, Pulse5, Pulse7);
   
-  /*PORTD |= (1 << PORTD7 ) | (1 << PORTD3) | (1 << PORTD4 ) | (1 << PORTD5);
+  /*PORTD |= (1 << PORTD3 ) | (1 << PORTD4 ) | (1 << PORTD5);
   delayMicroseconds(Pulse);
-  PORTD &= ~(_BV(PORTD3)) & ~(_BV(PORTD7)) & ~(_BV(PORTD4)) & ~(_BV(PORTD5));
+  PORTD &=  ~(_BV(PORTD3)) & ~(_BV(PORTD4)) & ~(_BV(PORTD5));
   delay(20 - (Pulse/1000));*/
 }
 
