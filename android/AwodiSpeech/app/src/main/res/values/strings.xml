@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AwodiSpeech</string>
+    <string name="tap_to_command">Tap Speak Command!</string>
+    <string name="speak_prompt">Say a Command!</string>
+    <string name="speak_failed">Sorry! Speech input not supported in this device</string>
+
+</resources>
