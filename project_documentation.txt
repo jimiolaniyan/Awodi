@@ -82,3 +82,25 @@ Pad things
 - Axis index 3 is -1 to 0 to +1 (i.e get_axis(3) is right analog up(-1) to down(+1))
 
 - It appears indices 2 and 3 have better finetune when moving the analog stick
+
+
+Latest findings (IMU axes, loop time (DT), Apparent motor speed limit and Servo REFRESH_INTERVAL)
+
+**IMU axes
+ I confirmed that in our current orientation, the IMU axes correspond to our motor-esc arrangements as follows
+ - X axis to escs on arduino pins 5(+) and 4(-)
+ - Y axis to escs on arduino pins 3(+) and 7(-)
+
+**Loop time
+ I tested measuring loop time using arduinos millis() and it's sufficient, however I hope to use a constant in the final version.
+
+**Apparent motor speed limits
+ In search for what our max speed should be in code, I ran a test on the motors and found that beyond a pulse width of 1900us the speeds don't
+ increase anymore. I was testing with increments on 100 starting from 1500. I noticed after 1900, 2000 has the same speed. On the lower end the 
+ smaller ESCs can still run at 1200 but the biggest one only starts reliably at 1300. I am thinking we limit the speed band to 1350 - 1850.
+
+**Servo REFRESH_INTERVAL
+ First of all, I discovered yesterday that the servo signals aren't actually PWM(duty cycle versus cycle period) but PDM/PPM(dependent on the duration
+ of the pulse itself, not in relation to the cycle period). Arduino's Servo library sets the REFRESH_INTERVAL to 20000(20ms/50Hz) and min and max pulse
+ width to 540 and 2400 us respectively by default. I am trying to play around with the refresh interval because I have seen all around that 50Hz is quite
+ slow for stability of a quad and to capture transient commands. 
