@@ -1,5 +1,5 @@
 # Awodi
-_Awodi_ is Micro Aerial Vehicle made with a PCB frame, having a combination of  an  on - board  position sensor and an  Arduino  for implementing and testing control strategies. Designed and constructed by [@jimiolaniyan](https://github.com/jimiolaniyan) and [@demukpere](https://github.com/demukpere), it is a modification of [this instructable](http://www.instructables.com/id/PCB-Quadrotor-Brushless/?ALLSTEPS) by [Shane Colton](http://scolton.blogspot.com/).
+_Awodi_ is a Micro Aerial Vehicle made with a PCB frame, having a combination of  an  on - board  position sensor and an  Arduino  for implementing and testing control strategies. Designed and constructed by [@jimiolaniyan](https://github.com/jimiolaniyan) and [@demukpere](https://github.com/demukpere), it is a modification of [this instructable](http://www.instructables.com/id/PCB-Quadrotor-Brushless/?ALLSTEPS) by [Shane Colton](http://scolton.blogspot.com/).
 
 This drone also has a voice-activation feature whereby the drone can be commanded through voice inputs to an android device that are sent over a wireless network using xbees.
 
