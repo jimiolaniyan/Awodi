@@ -1,13 +1,17 @@
 #include "SoftI2CMaster.h"
 #include "imu.h"
-
-const byte sclPin = 3;
-const byte sdaPin = 5;
+#define A_GAIN 0.0573 
+#define G_GAIN 0.00875
+const byte sclPin = A3;
+const byte sdaPin = 10;
 
 SoftI2CMaster i2c;
 
 int gyro_x, gyro_y, gyro_z;
 int accel_x, accel_y, accel_z;
+float DT = 0;
+int prevTime = 0;
+int currentTime = 0;
 
 void setup() {
   // put your setup code here, to run once:
@@ -25,13 +29,13 @@ void loop() {
   readGyro();
   readAcc();
   Serial.print("gyro_x is: ");
-  Serial.println(gyro_x);
+  Serial.println(gyro_x * G_GAIN);
 
   Serial.print("gyro_y is: ");
-  Serial.println(gyro_y);
+  Serial.println(gyro_y * G_GAIN);
 
   Serial.print("gyro_z is: ");
-  Serial.println(gyro_z);
+  Serial.println(gyro_z * G_GAIN);
 
   Serial.println(" ");
   
@@ -39,14 +43,18 @@ void loop() {
   Serial.println(accel_x);
 
   Serial.print("accel_y is: ");
-  Serial.println(accel_y);
+  Serial.println(accel_y * A_GAIN);
 
   Serial.print("accel_z is: ");
-  Serial.println(accel_z);
+  Serial.println(accel_z * A_GAIN);
 
   Serial.println(" ");
-
-  delay(200);
+  
+  currentTime = millis();
+  DT = (float)(currentTime - prevTime)/1000;
+  prevTime = currentTime;
+  Serial.println(DT);
+  delay(3000);
   
 }
 
